@@ -8,6 +8,17 @@ class RackRequestObjectLogger
   end
 
   def call(env)
+    start_time = Time.now.utc
+
+    app_result = @app.call(env)
+
+    end_time = Time.now.utc
+    logger_object = @model.new
+    logger_object.application_server_request_start = start_time
+    logger_object.application_server_request_end = end_time
+    logger_object.save
+    app_result
+=begin
     request = Rack::Request.new(env)
     # this may not be sufficient with warden/devise/other gems which put stuff into env
     # also need to filter figaro stuff, stack settings from AWS
@@ -29,5 +40,6 @@ class RackRequestObjectLogger
     end
 
     @app.call(env)
+=end
   end
 end
