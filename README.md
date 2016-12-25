@@ -1,3 +1,9 @@
+[![Build Status](http://img.shields.io/travis/starmammoth/rack-request-object-logger.svg?style=flat-square)](https://travis-ci.org/starmammoth/rack-request-object-logger)
+[![Dependency Status](http://img.shields.io/gemnasium/starmammoth/rack-request-object-logger.svg?style=flat-square)](https://gemnasium.com/starmammoth/rack-request-object-logger)
+[![Code Climate](http://img.shields.io/codeclimate/github/starmammoth/rack-request-object-logger.svg?style=flat-square)](https://codeclimate.com/github/starmammoth/rack-request-object-logger)
+[![Gem Version](http://img.shields.io/gem/v/rack-request-object-logger.svg?style=flat-square)](https://rubygems.org/gems/rack-request-object-logger)
+[![License](http://img.shields.io/:license-apache-blue.svg?style=flat-square)](http://www.apache.org/licenses/LICENSE-2.0.html)
+
 # rack-request-object-logger
 
 **Human description:** I created this to log all HTTP requests from my Rails application into MySQL database automatically. Then process via ElasticSearch.
