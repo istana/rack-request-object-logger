@@ -17,13 +17,14 @@ RSpec.describe RackRequestObjectLogger do
     expect(RackRequestObjectLogger::VERSION).not_to be nil
   end
 
-  it 'calculates how much it takes to do request in rack/rails stack' do
+  it 'stores start and end times of the request in rack/rails stack' do
     logger_object = RequestSql.new
     allow(RequestSql).to receive(:new).and_return(logger_object)
 
     response = request.get('/')
     expect(logger_object.application_server_request_start).not_to eq(nil)
     expect(logger_object.application_server_request_end).not_to eq(nil)
+    expect(logger_object.application_server_request_start).to be < logger_object.application_server_request_end
   end
 
   it 'saves a log object' do
