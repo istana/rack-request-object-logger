@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rack-request-object-logger (0.1.0)
+    rack-request-object-logger (0.2.0)
       rack
 
 GEM
