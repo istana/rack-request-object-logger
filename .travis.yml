@@ -4,7 +4,11 @@ rvm:
   - 2.2.6
   - 2.3.3
   - 2.4.0
-  - rbx-2.2.7
+  - rbx
   - jruby-9.1.6.0
   - jruby-head
-before_install: gem install bundler -v 1.13.6
+before_install: gem install bundler -v 1.13.7
+addons:
+  apt:
+    packages:
+      - llvm-3.7
