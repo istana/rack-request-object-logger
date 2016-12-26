@@ -16,10 +16,17 @@ class RackRequestObjectLogger
     logger_object = @model.new
     logger_object.application_server_request_start = start_time
     logger_object.application_server_request_end = end_time
+    request = Rack::Request.new(env)
+    logger_object.data = request.env.select do |header, value|
+      [
+        'REQUEST_METHOD', 'SERVER_NAME', 'SERVER_PORT', 'QUERY_STRING', 'PATH_INFO',
+        'HTTPS', 'SCRIPT_NAME', 'CONTENT_LENGTH', 'REMOTE_ADDR', 'HTTP_HOST'
+      ].include? header
+    end
     logger_object.save
     app_result
 =begin
-    request = Rack::Request.new(env)
+    
     # this may not be sufficient with warden/devise/other gems which put stuff into env
     # also need to filter figaro stuff, stack settings from AWS
     # TODO: pick only HTTP_* and the fields with ip address and CGI
@@ -33,13 +40,6 @@ class RackRequestObjectLogger
     # https://github.com/anveo/rack-request-id
     m.uuid = SecureRandom.uuid
     m.headers = data
-
-    if !m.save
-      # TODO logger or something
-      # I'm too lazy
-    end
-
-    @app.call(env)
 =end
   end
 end
