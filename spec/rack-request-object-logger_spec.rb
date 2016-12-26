@@ -14,7 +14,7 @@ RSpec.describe RackRequestObjectLogger do
 
   it 'stores start and end times of the request in rack/rails stack' do
     response = request.get('/')
-    expect(logger_object.application_server_request_start).to be < logger_object.application_server_request_end
+    expect(logger_object.application_server_request_start).to be <= logger_object.application_server_request_end
   end
 
   it 'stores headers to data attribute' do
