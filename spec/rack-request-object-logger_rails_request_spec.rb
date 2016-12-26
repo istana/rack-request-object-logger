@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe RackRequestObjectLogger do
+RSpec.describe 'RackRequestObjectLogger for Rails request' do
   # all header except the very long ones
   # request.headers.to_h.reject{|k,v| k.in?(["puma.config", "action_dispatch.routes", "action_dispatch.remote_ip", "rack.session.options", "action_controller.instance", "action_dispatch.cookies"])}
   let(:rails5_puma_headers) do
@@ -79,14 +79,19 @@ RSpec.describe RackRequestObjectLogger do
 
   it 'logs HTTP headers and CGI headers' do
     stub_const("Rack::MockRequest::DEFAULT_ENV", rails5_puma_headers)
-    response = request.get('/')
+    # needs absolute path, so SERVER_NAME is set correctly
+    response = request.get('http://localhost:4000/lol')
     expect(logger_object.data['SCRIPT_NAME']).to eq('')
     expect(logger_object.data['QUERY_STRING']).to eq('')
     expect(logger_object.data['SERVER_PROTOCOL']).to eq('HTTP/1.1')
     expect(logger_object.data['SERVER_SOFTWARE']).to eq('puma 3.6.2 Sleepy Sunday Serenity')
     expect(logger_object.data['GATEWAY_INTERFACE']).to eq('CGI/1.2')
     expect(logger_object.data['REQUEST_METHOD']).to eq('GET')
-    expect(logger_object.data['REQUEST_PATH']).to eq('/lol')
+    # https://groups.google.com/forum/#!topic/rack-devel/CkHsw84ttQ0
+    # REQUEST_PATH is a legacy variable that is completely undefined in Rack.
+    # Applications should use the Rack information, which should always be enough for any required purposes.
+    # Yehuda Katz
+    expect(logger_object.data['REQUEST_PATH']).to eq(nil)
     expect(logger_object.data['REQUEST_URI']).to eq('/lol')
     expect(logger_object.data['SERVER_NAME']).to eq('localhost')
     expect(logger_object.data['SERVER_PORT']).to eq('4000')
@@ -96,24 +101,25 @@ RSpec.describe RackRequestObjectLogger do
     expect(logger_object.data['ORIGINAL_SCRIPT_NAME']).to eq('')
     expect(logger_object.data['HTTP_VERSION']).to eq('HTTP/1.1')
     expect(logger_object.data['HTTP_HOST']).to eq('localhost:4000')
-    expect(logger_object.data['HTTP_UPGRADE_INSECURE_REQUESTS']).to eq('')
-    expect(logger_object.data['HTTP_ACCEPT']).to eq('1')
-    expect(logger_object.data['HTTP_USER_AGENT']).to eq('text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8')
+    expect(logger_object.data['HTTP_UPGRADE_INSECURE_REQUESTS']).to eq('1')
+    expect(logger_object.data['HTTP_ACCEPT']).to eq('text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8')
+    expect(logger_object.data['HTTP_USER_AGENT']).to eq('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit/602.3.12 (KHTML, like Gecko) Version/10.0.2 Safari/602.3.12')
     expect(logger_object.data['HTTP_ACCEPT_LANGUAGE']).to eq('en-us')
     expect(logger_object.data['HTTP_ACCEPT_ENCODING']).to eq('gzip, deflate')
     expect(logger_object.data['HTTP_CONNECTION']).to eq('keep-alive')
   end
 
-  it 'does not store rack.* values' do
+  it 'does not log puma.* variables' do
     stub_const("Rack::MockRequest::DEFAULT_ENV", rails5_puma_headers)
-    response = request.get('/')
-    expect(logger_object.data['rack.version']).to eq(nil)
-    expect(logger_object.data['rack.input']).to eq(nil)
-    expect(logger_object.data['rack.errors']).to eq(nil)
-    expect(logger_object.data['rack.multithread']).to eq(nil)
-    expect(logger_object.data['rack.multiprocess']).to eq(nil)
-    expect(logger_object.data['rack.run_once']).to eq(nil)
-    expect(logger_object.data['rack.test']).to eq(nil)
-    expect(logger_object.data['rack.url_scheme']).to eq(nil)
+    # needs absolute path, so SERVER_NAME is set correctly
+    response = request.get('http://localhost:4000/lol')
+    expect(logger_object.data['puma.socket']).to eq(nil)
+  end
+
+  it 'does not log action_dispatch.*' do
+    stub_const("Rack::MockRequest::DEFAULT_ENV", rails5_puma_headers)
+    # needs absolute path, so SERVER_NAME is set correctly
+    response = request.get('http://localhost:4000/lol')
+    expect(logger_object.data['action_dispatch.parameter_filter']).to eq(nil)
   end
 end

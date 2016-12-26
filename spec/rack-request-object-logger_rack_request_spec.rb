@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe RackRequestObjectLogger do
+RSpec.describe 'RackRequestObjectLogger for rack-test request' do
   let(:rack_test_headers) do
     {
       "rack.version" => [1, 3],
@@ -47,13 +47,13 @@ RSpec.describe RackRequestObjectLogger do
     expect(logger_object.data['HTTP_HOST']).to eq('example.org')
   end
 
-  it 'does not store cookies' do
+  it 'does not log cookies' do
     stub_const("Rack::MockRequest::DEFAULT_ENV", rack_test_headers)
     response = request.get('/')
     expect(logger_object.data['HTTP_COOKIE']).to eq(nil)
   end
 
-  it 'does not store rack.* values' do
+  it 'does not log rack.* values' do
     stub_const("Rack::MockRequest::DEFAULT_ENV", rack_test_headers)
     response = request.get('/')
     expect(logger_object.data['rack.version']).to eq(nil)
