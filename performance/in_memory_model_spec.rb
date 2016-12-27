@@ -1,7 +1,14 @@
-require 'performance_helper'
-require 'active_record'
+require_relative 'performance_helper'
 
-RSpec.describe "Performance testing with an ActiveRecord class", performance: true do
+class RequestDummyLog
+  attr_accessor :application_server_request_start, :application_server_request_end, :data, :uid
+
+  def save
+    true
+  end
+end
+
+RSpec.describe "Performance testing with a dummy class", performance: true do
   include RSpec::Benchmark::Matchers
 
   let(:rails5_puma_headers) do
@@ -71,35 +78,15 @@ RSpec.describe "Performance testing with an ActiveRecord class", performance: tr
     }
   end
 
-  class RequestActiveRecordLog < ActiveRecord::Base
-    serialize :headers, JSON
-  end
-
-  class CreateRequestActiveRecordLog < ActiveRecord::Migration[4.2]
-    def change
-      create_table :request_active_record_logs do |t|
-        t.integer :uid
-        t.text :data
-        t.time :application_server_request_start
-        t.time :application_server_request_end
-      end
-    end
-  end
-
   let(:app) { proc{ [200, {}, ['Hello, world.']] } }
-  let(:stack) { RackRequestObjectLogger.new(app, RequestActiveRecordLog) }
+  let(:stack) { RackRequestObjectLogger.new(app, RequestDummyLog) }
   let(:request) { Rack::MockRequest.new(stack) }
 
-  after { File.unlink 'active_record_performance.sqlite3' }
+  let(:logger_object) { RequestDummyLog.new }
+  before { allow(RequestDummyLog).to receive(:new).and_return(logger_object) }
 
   it 'much fast. wow' do
     stub_const("Rack::MockRequest::DEFAULT_ENV", rails5_puma_headers)
-
-    ActiveRecord::Base.establish_connection(
-      adapter: 'sqlite3',
-      database: 'active_record_performance.sqlite3'
-    )
-    CreateRequestActiveRecordLog.migrate(:up)
-    expect { request.get('http://localhost:4000/doge') }.to perform_at_least(500).ips
+    expect { request.get('http://localhost:4000/doge') }.to perform_at_least(5000).ips
   end
 end
