@@ -1,5 +1,13 @@
 require 'performance_helper'
 
+class RequestDummyLog
+  attr_accessor :application_server_request_start, :application_server_request_end, :data, :uid
+
+  def save
+    true
+  end
+end
+
 RSpec.describe "Performance testing with a dummy class", performance: true do
   include RSpec::Benchmark::Matchers
 
