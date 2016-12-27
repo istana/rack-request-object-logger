@@ -6,15 +6,15 @@
 
 # rack-request-object-logger
 
-**Human description:** I created this to log all HTTP requests from my Rails application into MySQL database automatically. Then process via ElasticSearch.
+**Human description:** I created this to log all HTTP requests from my Rails application into MySQL database automatically. Then process and search via ElasticSearch.
 
-**General concept:** Log HTTP requests via Rack stack to an object. Can use any object, because logger uses dependency injection in setup. Be independent of Rails.
+**General concept:** Log HTTP requests via Rack stack to an object. Use any object, because logger uses dependency injection in the constructor. Be independent from Rails.
 
-Don't be confused with no commits in months or years. Rack middlewares rarely change. They just work for years.
+Don't be confused with no commits in months or years. Rack middlewares rarely change. They just work.
 
 ## Install gem
 
-```
+```bash
 gem install rack-request-object-logger
 ```
 
@@ -24,32 +24,48 @@ gem install rack-request-object-logger
 gem 'rack-request-object-logger'
 ```
 
+## Rubies Support
+
+Ruby 2.1+, jruby and rubinius...most likely, because the code is in pure Ruby
+
+## TODO
+
+- the code work flawlessly
+- performance specs don't work on jruby, but works on MRI
+- I couldn't install rubinius yet, so it's untested
+
 ## Example - logging to SQL database in Rails
 
 generate a model for storage
 
-```
-$ bin/rails g model Sql::HttpRequest uuid:string headers:text
+```bash
+$ bin/rails g model Sql::HttpRequest uuid:string data:text
 
 ```
 
 add JSON serialization
-```
+
+```ruby
 # app/models/sql/http_request.rb
 class Sql::HttpRequest < ApplicationRecord
-  serialize :headers, JSON
+  serialize :data, JSON
 end
 
 ```
 
 add automatic logging via initializer
-```
+
+```ruby
 # config/initializers/rack_middlewares.rb
 
 Rails.application.config.middleware.use(RackRequestObjectLogger, Sql::HttpRequest)
 ```
 
-## Rails integration/awareness
+# Performance
+
+To run performance tests on your computer run `rspec performance/`. On my i5 laptop with ActiveRecord it processes and stores 500 logs per second, with dummy class 5000.
+
+## Rails Integration/Awareness
 
 The logger sets the UUID of request to match the request ID set by Rails.
 
@@ -59,11 +75,7 @@ The middleware stores all HTTP headers, but strips all *active_dispatch*, *warde
 
 I've seen applications sending sensitive data in GET and even POST requests in a query string. Don't do that. Use POST body. Or modify the middleware to filter out them.
 
-## Author
-
-Copyright 2016 Ivan Stana, licensed under Apache 2.0 license. Enjoy.
-
-## License
+## License & Author
 
 Copyright 2016 Ivan Stana
 
@@ -79,6 +91,8 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
+...Enjoy
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
@@ -87,7 +101,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/istana/rack-request-object-logger. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/starmammoth/rack-request-object-logger. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## Alternatives
 
