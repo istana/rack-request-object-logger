@@ -39,7 +39,7 @@ Ruby 2.1+, jruby and rubinius...most likely, because the code is in pure Ruby
 generate a model for storage
 
 ```bash
-$ bin/rails g model Sql::HttpRequest uuid:string data:text
+$ bin/rails g model Sql::HttpRequest uid:string data:text
 
 ```
 
