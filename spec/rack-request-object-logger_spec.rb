@@ -2,11 +2,11 @@ require 'spec_helper'
 
 RSpec.describe RackRequestObjectLogger do
   let(:app) { proc{ [200,{}, ['Hello, world.']] } }
-  let(:stack) { RackRequestObjectLogger.new(app, RequestSql) }
+  let(:stack) { RackRequestObjectLogger.new(app, RequestDummyLog) }
   let(:request) { Rack::MockRequest.new(stack) }
 
-  let(:logger_object) { RequestSql.new }
-  before { allow(RequestSql).to receive(:new).and_return(logger_object) }
+  let(:logger_object) { RequestDummyLog.new }
+  before { allow(RequestDummyLog).to receive(:new).and_return(logger_object) }
 
   it "has a version number" do
     expect(RackRequestObjectLogger::VERSION).not_to be nil
