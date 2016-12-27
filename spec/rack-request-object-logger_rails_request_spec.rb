@@ -111,15 +111,19 @@ RSpec.describe 'RackRequestObjectLogger for Rails request' do
 
   it 'does not log puma.* variables' do
     stub_const("Rack::MockRequest::DEFAULT_ENV", rails5_puma_headers)
-    # needs absolute path, so SERVER_NAME is set correctly
-    response = request.get('http://localhost:4000/lol')
+    response = request.get('/')
     expect(logger_object.data['puma.socket']).to eq(nil)
   end
 
   it 'does not log action_dispatch.*' do
     stub_const("Rack::MockRequest::DEFAULT_ENV", rails5_puma_headers)
-    # needs absolute path, so SERVER_NAME is set correctly
-    response = request.get('http://localhost:4000/lol')
+    response = request.get('/')
     expect(logger_object.data['action_dispatch.parameter_filter']).to eq(nil)
+  end
+
+  it 'sets uid of log to request ID from Rails' do
+    stub_const("Rack::MockRequest::DEFAULT_ENV", rails5_puma_headers)
+    response = request.get('/')
+    expect(logger_object.uid).to eq('18f28286-d4d1-4378-b959-189db4a22754')
   end
 end

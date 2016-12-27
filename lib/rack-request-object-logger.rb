@@ -37,15 +37,8 @@ class RackRequestObjectLogger
       ].include?(header) || ['HTTP', 'HTTPS'].include?(header) || header =~ /\AHTTP_\w+\z/ ||
       ['REQUEST_URI', 'ORIGINAL_FULLPATH', 'ORIGINAL_SCRIPT_NAME'].include?(header)
     end
+    logger_object.uid = request.env['action_dispatch.request_id'] || SecureRandom.uuid
     logger_object.save
     app_result
-=begin
-    # TODO: respect Rails request id
-    # TODO: filter sensitive params
-    # Rails+Puma adds request.uuid, but cannot use here
-    # https://github.com/anveo/rack-request-id
-    m.uuid = SecureRandom.uuid
-    m.headers = data
-=end
   end
 end

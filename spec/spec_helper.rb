@@ -4,7 +4,7 @@ require "rack-request-object-logger"
 require 'pry'
 
 class RequestSql
-  attr_accessor :application_server_request_start, :application_server_request_end, :data
+  attr_accessor :application_server_request_start, :application_server_request_end, :data, :uid
 
   def save
     true

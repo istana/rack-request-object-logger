@@ -38,4 +38,9 @@ RSpec.describe RackRequestObjectLogger do
     response = request.get('/')
     expect(logger_object.data['REMOTE_ADDR']).to eq(nil)
   end
+
+  it 'saves uid of a request' do
+    expect(logger_object).to receive(:uid=)
+    response = request.get('/')
+  end
 end

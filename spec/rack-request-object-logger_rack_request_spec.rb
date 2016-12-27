@@ -65,4 +65,11 @@ RSpec.describe 'RackRequestObjectLogger for rack-test request' do
     expect(logger_object.data['rack.test']).to eq(nil)
     expect(logger_object.data['rack.url_scheme']).to eq(nil)
   end
+
+  it 'generates random uid when request ID is not present' do
+    allow(SecureRandom).to receive(:uuid).and_return('6cd406c9-2d24-4117-b8bc-924950243979')
+    stub_const("Rack::MockRequest::DEFAULT_ENV", rack_test_headers)
+    response = request.get('/')
+    expect(logger_object.uid).to eq('6cd406c9-2d24-4117-b8bc-924950243979')
+  end
 end
