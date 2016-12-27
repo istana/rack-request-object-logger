@@ -70,7 +70,7 @@ RSpec.describe "Performance testing with a dummy class", performance: true do
     }
   end
 
-  let(:app) { proc{ [200,{}, ['Hello, world.']] } }
+  let(:app) { proc{ [200, {}, ['Hello, world.']] } }
   let(:stack) { RackRequestObjectLogger.new(app, RequestDummyLog) }
   let(:request) { Rack::MockRequest.new(stack) }
 

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe RackRequestObjectLogger do
-  let(:app) { proc{ [200,{}, ['Hello, world.']] } }
+  let(:app) { proc{ [200, {}, ['Hello, world.']] } }
   let(:stack) { RackRequestObjectLogger.new(app, RequestDummyLog) }
   let(:request) { Rack::MockRequest.new(stack) }
 
