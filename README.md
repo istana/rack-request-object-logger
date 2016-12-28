@@ -30,7 +30,8 @@ Ruby 2.1+, jruby and rubinius...most likely, because the code is in pure Ruby
 
 ## TODO
 
-- the code work flawlessly
+While the code works flawlessly
+
 - performance specs don't work on jruby, but works on MRI
 - I couldn't install rubinius yet, so it's untested
 
