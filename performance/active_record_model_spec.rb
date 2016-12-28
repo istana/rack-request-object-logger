@@ -2,7 +2,7 @@
 require_relative 'performance_helper'
 require 'active_record'
 
-RSpec.describe "Performance testing with an ActiveRecord class", performance: true do
+RSpec.describe "Performance testing with an ActiveRecord class and SQLite3 database", performance: true do
   include RSpec::Benchmark::Matchers
 
   let(:rails5_puma_headers) do
