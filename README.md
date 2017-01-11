@@ -31,8 +31,7 @@ Ruby 2.1+, jruby and rubinius...most likely, because the code is in pure Ruby
 
 While the code works flawlessly
 
-- performance specs don't work on jruby, but works on MRI
-- I couldn't install rubinius yet, so it's untested
+- performance specs don't work on jruby, but works on MRI and Rubinius 3.60
 
 ## Example - logging to SQL database in Rails
 
