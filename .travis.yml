@@ -10,7 +10,7 @@ cache: bundler
 matrix:
   include:
      - rvm: ruby-head
-     - rvm: rbx-3
+     - rvm: rubinius-3
   allow_failures:
     - rvm: ruby-head
     - rvm: rubinius-3
