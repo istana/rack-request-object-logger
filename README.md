@@ -25,7 +25,7 @@ gem 'rack-request-object-logger'
 
 ## Rubies Support
 
-Ruby 2.1+, jruby and rubinius...most likely, because the code is in pure Ruby
+Ruby 2.1+, jRuby and Rubinius 3.69+
 
 ## Roadmap
 
