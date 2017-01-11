@@ -5,13 +5,12 @@ rvm:
   - 2.3.3
   - 2.4.0
   - jruby-9.1.6.0
+  - rbx-2
 before_install: gem install bundler -v 1.13.7
 cache: bundler
 matrix:
   include:
      - rvm: ruby-head
-     - rvm: rubinius-3
   allow_failures:
     - rvm: ruby-head
-    - rvm: rubinius-3
   fast_finish: true
