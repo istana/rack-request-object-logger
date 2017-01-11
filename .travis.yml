@@ -13,5 +13,5 @@ matrix:
      - rvm: rbx-3
   allow_failures:
     - rvm: ruby-head
-    - rvm: rbx-3
+    - rvm: rubinius-3
   fast_finish: true
