@@ -39,6 +39,7 @@ class RackRequestObjectLogger
       ['REQUEST_URI', 'ORIGINAL_FULLPATH', 'ORIGINAL_SCRIPT_NAME'].include?(header)
     end
     logger_object.uid = request.env['action_dispatch.request_id'] || SecureRandom.uuid
+    logger_object.status_code = app_result.first
     logger_object.save
     app_result
   end

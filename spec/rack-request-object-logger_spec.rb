@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 RSpec.describe RackRequestObjectLogger do
-  let(:app) { proc{ [200, {}, ['Hello, world.']] } }
+  let(:app) { proc{ [418, {}, ['Hello, world.']] } }
   let(:stack) { RackRequestObjectLogger.new(app, RequestDummyLog) }
   let(:request) { Rack::MockRequest.new(stack) }
 
@@ -21,6 +21,11 @@ RSpec.describe RackRequestObjectLogger do
   it 'stores headers to data attribute' do
     expect(logger_object).to receive(:data=)
     response = request.get('/')
+  end
+
+  it 'stores HTTP return code to data attribute' do
+    response = request.get('/')
+    expect(logger_object.status_code).to eq(418)
   end
 
   it 'saves a log object' do

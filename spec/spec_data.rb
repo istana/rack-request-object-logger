@@ -1,5 +1,5 @@
 class RequestDummyLog
-  attr_accessor :application_server_request_start, :application_server_request_end, :data, :uid
+  attr_accessor :application_server_request_start, :application_server_request_end, :data, :uid, :status_code
 
   def save
     true
