@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
   spec.summary       = %q{Log HTTP requests via Rack stack to an object. You can use any object.}
   spec.description   = %q{Log HTTP requests via Rack stack to an object. You can use any object, i.e. ActiveRecord model}
   spec.homepage      = "https://github.com/starmammoth/rack-request-object-logger"
-  spec.license       = "Apache 2.0"
+  spec.license       = "Apache-2.0"
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
