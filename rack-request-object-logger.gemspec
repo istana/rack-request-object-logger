@@ -23,13 +23,13 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "rack"
+  spec.add_dependency "rack", "> 0", "< 3.0"
   spec.add_development_dependency "bundler", "~> 1.14"
-  spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_development_dependency "rake", "~> 12.0"
   spec.add_development_dependency "rspec", "~> 3.5"
-  spec.add_development_dependency "rspec-benchmark"
-  spec.add_development_dependency "pry"
-  spec.add_development_dependency "activerecord", '>= 4.2'
-  spec.add_development_dependency "sqlite3" unless RUBY_PLATFORM == 'java'
-  spec.add_development_dependency "activerecord-jdbcsqlite3-adapter" if RUBY_PLATFORM == 'java'
+  spec.add_development_dependency "rspec-benchmark", "~> 0"
+  spec.add_development_dependency "pry", "~> 0"
+  spec.add_development_dependency "activerecord", '>= 4.2', "< 6.0"
+  spec.add_development_dependency "sqlite3", "~> 1.3" unless RUBY_PLATFORM == 'java'
+  spec.add_development_dependency "activerecord-jdbcsqlite3-adapter", "~> 1.3" if RUBY_PLATFORM == 'java'
 end
