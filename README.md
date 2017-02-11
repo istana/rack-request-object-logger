@@ -38,7 +38,7 @@ While the code works flawlessly
 generate a model for storage
 
 ```bash
-$ bin/rails g model Sql::HttpRequest uid:string data:text
+$ bin/rails g model Sql::HttpRequest uid:string data:text status_code:integer
 
 ```
 
