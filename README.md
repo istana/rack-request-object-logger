@@ -47,8 +47,8 @@ $ bin/rails g model AnalyticsHttpRequest uid:string data:text status_code:intege
 add JSON serialization
 
 ```ruby
-# app/models/sql/http_request.rb
-class Sql::HttpRequest < ApplicationRecord
+# app/models/analytics_http_request.rb
+class AnalyticsHttpRequest < ApplicationRecord
   serialize :data, JSON
 end
 
