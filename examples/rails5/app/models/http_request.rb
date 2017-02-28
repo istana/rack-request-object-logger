@@ -1,3 +1,3 @@
-class HttpRequest < ApplicationRecord
+class AnaylticsHttpRequest < ApplicationRecord
   serialize :data, JSON
 end

@@ -38,7 +38,9 @@ While the code works flawlessly
 generate a model for storage
 
 ```bash
-$ bin/rails g model Sql::HttpRequest uid:string data:text status_code:integer
+# you need to add 'limit: 6' to application_server_request_start and application_server_request_end
+# to have subsecond resolution please see examples/db/migrate/
+$ bin/rails g model AnalyticsHttpRequest uid:string data:text status_code:integer application_server_request_start:datetime application_server_request_end:datetime
 
 ```
 
@@ -57,7 +59,7 @@ add automatic logging via initializer
 ```ruby
 # config/initializers/rack_middlewares.rb
 
-Rails.application.config.middleware.use(RackRequestObjectLogger, Sql::HttpRequest)
+Rails.application.config.middleware.use(RackRequestObjectLogger, AnalyticsHttpRequest)
 ```
 
 # Performance
