@@ -32,6 +32,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "activerecord", '>= 5.0', "< 6.0"
   spec.add_development_dependency "sqlite3", "~> 1.3" unless RUBY_PLATFORM == 'java'
   spec.add_development_dependency "mysql2", "~> 0.4.5" unless RUBY_PLATFORM == 'java'
-  spec.add_development_dependency "activerecord-jdbcsqlite3-adapter", "~> 1.3" if RUBY_PLATFORM == 'java'
-  spec.add_development_dependency "activerecord-jdbcmysql-adapter", "~> 1.3" if RUBY_PLATFORM == 'java'
+  spec.add_development_dependency "activerecord-jdbcsqlite3-adapter", "~> 5.0.pre1" if RUBY_PLATFORM == 'java'
+  spec.add_development_dependency "activerecord-jdbcmysql-adapter", "~> 5.0.pre1" if RUBY_PLATFORM == 'java'
 end
