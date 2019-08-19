@@ -24,13 +24,15 @@ gem 'rack-request-object-logger'
 
 ## Rubies Support
 
-Ruby 2.1+, jRuby and Rubinius 3.69+
+Tested with Matz Ruby 2.5, 2.6 and Truffleruby.
+
+Should work with Ruby 2.1+, jRuby and Rubinius 3.69+ (is dead!) and Truffleruby.
 
 ## Roadmap
 
 While the code works flawlessly
 
-- performance specs don't work on jruby, but works on MRI and Rubinius 3.60
+Bug: I learned at EuRuKo 2018 that my implementation of timings is wrong and not very accurate.
 
 ## Example - logging to SQL database in Rails
 
@@ -98,10 +100,6 @@ limitations under the License.
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
-
-## Bugs
-
-I learned at EuRuKo 2018 that my implementation of timings is wrong and not very accurate.
 
 ## Contributing
 
