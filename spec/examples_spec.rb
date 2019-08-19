@@ -35,7 +35,7 @@ RSpec.describe '20170211004327_create_http_requests.rb' do
       # WTF? cannot specify database here, otherwise everything, create_database included
       # will fail with ActiveRecord::NoDatabaseError: Unknown database 'examples_test'
       #database: 'examples_test',
-      username: 'root',
+      username: 'travis',
       password: '',
       host: '127.0.0.1',
       port: 3306
