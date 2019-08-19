@@ -1,12 +1,13 @@
 sudo: false
 language: ruby
 addons:
-  mariadb: '10.0'
+  mariadb: '10.4'
 rvm:
-  - 2.4.6
   - 2.5.4
   - 2.6.3
 before_install: gem install bundler -v 1.17.2
+install:
+  - mysql -u root -e 'CREATE USER IF NOT EXISTS travis@localhost; GRANT ALL ON *.* TO travis@localhost;'
 cache: bundler
 matrix:
   include:
