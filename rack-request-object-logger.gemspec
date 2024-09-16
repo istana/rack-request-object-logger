@@ -23,13 +23,13 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "rack", "> 0", "< 3.0"
+  spec.add_dependency "rack", "> 0", "< 4.0"
   spec.add_development_dependency "bundler", "~> 2.0"
-  spec.add_development_dependency "rake", "~> 12.3"
-  spec.add_development_dependency "rspec", "~> 3.8"
+  spec.add_development_dependency "rake", "~> 13"
+  spec.add_development_dependency "rspec", "~> 3.13"
   spec.add_development_dependency "rspec-benchmark", "~> 0"
   spec.add_development_dependency "pry", "~> 0"
-  spec.add_development_dependency "activerecord", '>= 6.0', "< 7.0"
-  spec.add_development_dependency "sqlite3", "~> 1.4" unless RUBY_PLATFORM == 'java'
+  spec.add_development_dependency "activerecord", '>= 6.0', "< 8.0"
+  spec.add_development_dependency "sqlite3", "~> 2.0" unless RUBY_PLATFORM == 'java'
   spec.add_development_dependency "mysql2", "~> 0.5" unless RUBY_PLATFORM == 'java'
 end
