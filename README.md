@@ -3,11 +3,9 @@
 
 # rack-request-object-logger
 
-**Human description:** I created this to log all HTTP requests from my Rails application into MySQL database automatically. Then process and search via ElasticSearch.
+The project is a Rack middleware to automatically log a HTTP request to a custom object.
 
-**General concept:** Log HTTP requests via Rack stack to an object. Use any object, because logger uses dependency injection in the constructor. Be independent from Rails.
-
-Don't be confused with no commits in months or years. Rack middlewares rarely change. They just work.
+There might be no commits in months or years. Rack middlewares rarely change.
 
 ## Install gem
 
@@ -38,26 +36,13 @@ Bug: I learned at EuRuKo 2018 that my implementation of timings is wrong and not
 generate a model for storage
 
 ```bash
-# you need to add 'limit: 6' to application_server_request_start and application_server_request_end
-# to have subsecond resolution please see examples/db/migrate/
-$ bin/rails g model AnalyticsHttpRequest uid:string data:text status_code:integer application_server_request_start:datetime application_server_request_end:datetime
-
-```
-
-add JSON serialization
-
-```ruby
-# app/models/analytics_http_request.rb
-class AnalyticsHttpRequest < ApplicationRecord
-  serialize :data, JSON
-end
-
+$ bin/rails g model AnalyticsRequest uid:string data:jsonb status_code:integer application_server_request_start:datetime application_server_request_end:datetime
 ```
 
 add automatic logging via initializer
 
 ```ruby
-# config/initializers/rack_middlewares.rb
+# config/initializers/log_requests.rb
 
 Rails.application.config.middleware.use(RackRequestObjectLogger, AnalyticsHttpRequest)
 ```
@@ -78,7 +63,7 @@ I've seen applications sending sensitive data in GET and even POST requests in a
 
 ## License & Author
 
-Copyright 2016-2019 Ivan Stana
+Copyright 2016-2024 Ivan Stana
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

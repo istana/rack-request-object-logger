@@ -34,8 +34,7 @@ RSpec.describe RackRequestObjectLogger do
   end
 
   it 'stores string values' do
-    stub_const("Rack::MockRequest::DEFAULT_ENV", { 'REMOTE_ADDR' => 'bar' })
-    response = request.get('/')
+    response = request.get('/', { 'REMOTE_ADDR' => 'bar' })
     expect(logger_object.data['REMOTE_ADDR']).to eq('bar')
   end
 

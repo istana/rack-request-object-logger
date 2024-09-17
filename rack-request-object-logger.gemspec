@@ -11,17 +11,21 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Ivan Stana"]
   spec.email         = ["ronon@myrtana.sk"]
 
-  spec.summary       = %q{Log HTTP requests via Rack stack to an object. You can use any object.}
-  spec.description   = %q{Log HTTP requests via Rack stack to an object. You can use any object, i.e. ActiveRecord model}
-  spec.homepage      = "https://github.com/starmammoth/rack-request-object-logger"
+  spec.summary       = %q{The project is a Rack middleware to automatically log a HTTP request to a custom object.}
+  spec.description   = %q{The project is a Rack middleware to automatically log a HTTP request to a custom object.}
+  spec.homepage      = "https://github.com/istana/rack-request-object-logger"
   spec.license       = "Apache-2.0"
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
-    f.match(%r{^(test|spec|features)/})
+    f.match(%r{^(test|spec|features|performance)/})
   end
-  spec.bindir        = "exe"
-  spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
+
+  spec.metadata = {
+    "bug_tracker_uri"   => "https://github.com/istana/rack-request-object-logger/issues",
+    "homepage_uri"      => "https://github.com/istana/rack-request-object-logger",
+    "source_code_uri"   => "https://github.com/istana/rack-request-object-logger",
+  }
 
   spec.add_dependency "rack", "> 0", "< 4.0"
   spec.add_development_dependency "bundler", "~> 2.0"

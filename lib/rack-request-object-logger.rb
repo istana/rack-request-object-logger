@@ -17,8 +17,7 @@ class RackRequestObjectLogger
     logger_object = @model.new
     logger_object.application_server_request_start = start_time
     logger_object.application_server_request_end = end_time
-    request = Rack::Request.new(env)
-    logger_object.data = request.env.select do |header, value|
+    logger_object.data = env.select do |header, value|
       # don't bother with values other than a string
       next if !value.is_a?(String)
       # https://tools.ietf.org/html/rfc3875 CGI 1.1 spec
@@ -38,7 +37,7 @@ class RackRequestObjectLogger
       ].include?(header) || ['HTTP', 'HTTPS'].include?(header) || header =~ /\AHTTP_\w+\z/ ||
       ['REQUEST_URI', 'ORIGINAL_FULLPATH', 'ORIGINAL_SCRIPT_NAME'].include?(header)
     end
-    logger_object.uid = request.env['action_dispatch.request_id'] || SecureRandom.uuid
+    logger_object.uid = env['action_dispatch.request_id'] || SecureRandom.uuid
     logger_object.status_code = app_result.first
     logger_object.save
     app_result
