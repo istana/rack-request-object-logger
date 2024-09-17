@@ -1,4 +1,3 @@
-[![Build Status](http://img.shields.io/travis/istana/rack-request-object-logger.svg?style=flat-square)](https://travis-ci.org/istana/rack-request-object-logger)
 [![Gem Version](http://img.shields.io/gem/v/rack-request-object-logger.svg?style=flat-square)](https://rubygems.org/gems/rack-request-object-logger)
 [![License](http://img.shields.io/:license-apache-blue.svg?style=flat-square)](http://www.apache.org/licenses/LICENSE-2.0.html)
 
