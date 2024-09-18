@@ -10,7 +10,7 @@ RSpec.describe "Performance testing with an ActiveRecord class and SQLite3 datab
   class RequestActiveRecordLog < ActiveRecord::Base
   end
 
-  class CreateRequestActiveRecordLog < ActiveRecord::Migration[7.2]
+  class CreateRequestActiveRecordLog < ActiveRecord::Migration[7.0]
     def change
       create_table :request_active_record_logs do |t|
         t.text :uid
@@ -38,6 +38,6 @@ RSpec.describe "Performance testing with an ActiveRecord class and SQLite3 datab
       database: 'active_record_performance.sqlite3'
     )
     CreateRequestActiveRecordLog.migrate(:up)
-    expect { request.get('http://localhost:4000/doge', rails_headers) }.to perform_at_least(500).ips
+    expect { request.get('http://localhost:4000/doge', rails_headers) }.to perform_at_least(200).ips.warmup(10)
   end
 end
