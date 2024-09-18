@@ -14,7 +14,6 @@ RSpec.describe "Performance testing with a dummy class", performance: true do
   before { allow(RequestDummyLog).to receive(:new).and_return(logger_object) }
 
   it 'much fast. wow' do
-    set_headers(rails5_puma_headers)
-    expect { request.get('http://localhost:4000/doge') }.to perform_at_least(5000).ips
+    expect { request.get('http://localhost:4000/doge', rails_headers) }.to perform_at_least(5000).ips
   end
 end

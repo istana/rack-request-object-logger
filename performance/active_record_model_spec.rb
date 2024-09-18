@@ -8,14 +8,14 @@ RSpec.describe "Performance testing with an ActiveRecord class and SQLite3 datab
   include_context 'spec_data'
 
   class RequestActiveRecordLog < ActiveRecord::Base
-    serialize :headers, JSON
   end
 
-  class CreateRequestActiveRecordLog < ActiveRecord::Migration[4.2]
+  class CreateRequestActiveRecordLog < ActiveRecord::Migration[7.2]
     def change
       create_table :request_active_record_logs do |t|
-        t.integer :uid
-        t.text :data
+        t.text :uid
+        t.integer :status_code
+        t.json :data
         t.time :application_server_request_start
         t.time :application_server_request_end
       end
@@ -26,16 +26,18 @@ RSpec.describe "Performance testing with an ActiveRecord class and SQLite3 datab
   let(:stack) { RackRequestObjectLogger.new(app, RequestActiveRecordLog) }
   let(:request) { Rack::MockRequest.new(stack) }
 
-  after { File.unlink 'active_record_performance.sqlite3' }
+  after do
+    File.unlink 'active_record_performance.sqlite3'
+    File.unlink 'active_record_performance.sqlite3-shm'
+    File.unlink 'active_record_performance.sqlite3-wal'
+  end
 
   it 'much fast. wow' do
-    set_headers(rails5_puma_headers)
-
     ActiveRecord::Base.establish_connection(
       adapter: 'sqlite3',
       database: 'active_record_performance.sqlite3'
     )
     CreateRequestActiveRecordLog.migrate(:up)
-    expect { request.get('http://localhost:4000/doge') }.to perform_at_least(500).ips
+    expect { request.get('http://localhost:4000/doge', rails_headers) }.to perform_at_least(500).ips
   end
 end
