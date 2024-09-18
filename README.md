@@ -1,3 +1,4 @@
+![example workflow](https://github.com/istana/rack-request-object-logger/actions/workflows/ruby.yml/badge.svg)
 [![Gem Version](http://img.shields.io/gem/v/rack-request-object-logger.svg?style=flat-square)](https://rubygems.org/gems/rack-request-object-logger)
 [![License](http://img.shields.io/:license-apache-blue.svg?style=flat-square)](http://www.apache.org/licenses/LICENSE-2.0.html)
 
@@ -21,9 +22,9 @@ gem 'rack-request-object-logger'
 
 ## Rubies Support
 
-Tested with Matz Ruby 2.5, 2.6 and Truffleruby.
+Tested with Matz Ruby 2.7, 3.0, 3.1, 3.2, 3.3, head, and ruffleruby, truffleruby-head.
 
-Should work with Ruby 2.1+, jRuby and Rubinius 3.69+ (is dead!) and Truffleruby.
+Should work also with jRuby, just sqlite3 adapter supports only Rails 7 and tests require a more recent Rails.
 
 ## Roadmap
 

@@ -34,6 +34,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec-benchmark", "~> 0"
   spec.add_development_dependency "pry", "~> 0"
   spec.add_development_dependency "activerecord", '>= 6.0', "< 8.0"
-  spec.add_development_dependency "sqlite3", "~> 2.0" unless RUBY_PLATFORM == 'java'
-  spec.add_development_dependency "mysql2", "~> 0.5" unless RUBY_PLATFORM == 'java'
+  spec.add_development_dependency "sqlite3", "<= 2.1" unless RUBY_PLATFORM == "java"
 end
+
+
+
