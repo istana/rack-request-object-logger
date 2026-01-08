@@ -28,14 +28,11 @@ Gem::Specification.new do |spec|
   }
 
   spec.add_dependency "rack", "> 0", "< 4.0"
-  spec.add_development_dependency "bundler", "~> 2.0"
+  spec.add_development_dependency "bundler", "< 5.0"
   spec.add_development_dependency "rake", "~> 13"
   spec.add_development_dependency "rspec", "~> 3.13"
   spec.add_development_dependency "rspec-benchmark", "~> 0"
   spec.add_development_dependency "pry", "~> 0"
-  spec.add_development_dependency "activerecord", '>= 6.0', "< 8.0"
-  spec.add_development_dependency "sqlite3", "<= 2.1" unless RUBY_PLATFORM == "java"
+  spec.add_development_dependency "activerecord", '>= 6.0', "< 9"
+  spec.add_development_dependency "sqlite3", "<= 3" unless RUBY_PLATFORM == "java"
 end
-
-
-
