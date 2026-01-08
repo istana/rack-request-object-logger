@@ -22,9 +22,9 @@ gem 'rack-request-object-logger'
 
 ## Rubies Support
 
-Tested with Matz Ruby 2.7, 3.0, 3.1, 3.2, 3.3, head, and ruffleruby, truffleruby-head.
+Tested with Matz Ruby 2.7, 3.2, 3.3, 3.4, 4.0, head, and ruffleruby, truffleruby-head.
 
-Should work also with jRuby, just sqlite3 adapter supports only Rails 7 and tests require a more recent Rails.
+Should work also with 3.0, 3.1, jRuby, just sqlite3 adapter supports only Rails 7-8 and tests require a more recent Rails.
 
 ## Roadmap
 
@@ -64,7 +64,7 @@ I've seen applications sending sensitive data in GET and even POST requests in a
 
 ## License & Author
 
-Copyright 2016-2024 Ivan Stana
+Copyright 2016-2026 Ivan Stana
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
