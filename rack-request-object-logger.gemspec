@@ -28,7 +28,7 @@ Gem::Specification.new do |spec|
   }
 
   spec.add_dependency "rack", "> 0", "< 4.0"
-  spec.add_development_dependency "bundler", "~> 2.0"
+  spec.add_development_dependency "bundler", "< 5.0"
   spec.add_development_dependency "rake", "~> 13"
   spec.add_development_dependency "rspec", "~> 3.13"
   spec.add_development_dependency "rspec-benchmark", "~> 0"
